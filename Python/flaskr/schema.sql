@@ -6,12 +6,13 @@ CREATE TABLE Goal (
     goalName TEXT NOT NULL,
     frequency TEXT NOT NULL,
     completed BOOLEAN, 
-    numCompleted INTEGER
+    numCompleted INTEGER,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Achievement (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    completed TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     goal_id INTEGER,
     FOREIGN KEY (goal_id) REFERENCES Goal (id) 
 );
