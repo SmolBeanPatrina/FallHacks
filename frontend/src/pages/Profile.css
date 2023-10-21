@@ -1,0 +1,12 @@
+td {
+    @apply py-4;
+}
+td:not(:last-child) {
+    @apply text-left;
+}
+td:nth-child(2) {
+    @apply text-gray-800/75;
+}
+td:last-child {
+    @apply text-right;
+}
