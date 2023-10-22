@@ -10,7 +10,7 @@ function Profile() {
       <div className="mt-8 w-full">
         <table className="w-full">
           <tbody>
-            <tr className="border-b">
+            <tr className="border-b dark:border-gray-400">
               <td>Email</td>
               <td>lipsum@example.com</td>
               <td>Edit</td>
@@ -23,7 +23,7 @@ function Profile() {
           </tbody>
         </table>
       </div>
-      <button className="rounded border text-red-600 py-2 px-4 mt-8">
+      <button className="rounded border dark:border-gray-400 text-red-600 dark:text-red-400 py-2 px-4 mt-8">
         Sign out
       </button>
     </div>

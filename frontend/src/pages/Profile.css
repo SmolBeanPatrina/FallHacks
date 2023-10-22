@@ -5,7 +5,7 @@ td:not(:last-child) {
     @apply text-left;
 }
 td:nth-child(2) {
-    @apply text-gray-800/75;
+    @apply text-gray-800/75 dark:text-white/75;
 }
 td:last-child {
     @apply text-right;
