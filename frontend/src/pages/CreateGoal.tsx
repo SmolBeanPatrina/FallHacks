@@ -13,7 +13,7 @@ function CreateGoal() {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Goal name
                 </label>
@@ -32,7 +32,7 @@ function CreateGoal() {
               <div className="mt-2">
                 <label
                   htmlFor="frequency"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Frequency
                 </label>
