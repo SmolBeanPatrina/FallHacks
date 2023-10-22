@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-  @apply h-screen w-screen max-w-lg flex m-auto;
+  @apply h-screen w-screen max-w-lg flex m-auto bg-white dark:bg-gray-900 text-gray-800 dark:text-white;
 }
