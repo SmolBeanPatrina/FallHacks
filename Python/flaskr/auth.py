@@ -73,7 +73,7 @@ def login():
 
         flash(error)
 
-    userJSON = json.dump(user)
+    userJSON = json.dumps(user)
     return userJSON
 
 @bp.before_app_request
