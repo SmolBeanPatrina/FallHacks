@@ -2,10 +2,11 @@ from flask import (
     Blueprint, flash, g, redirect, json, request, session, url_for
 )
 from flaskr.db import get_db
-
+from flaskr.auth import login_required
 bp = Blueprint('goal', __name__, url_prefix='/goal')
 
 @bp.route("/list", methods = ["GET"])
+@login_required
 def index():
     db = get_db()
     goals = db.execute(
@@ -17,6 +18,7 @@ def index():
     return goalsJSON
 
 @bp.route('/goal', methods=['GET'])
+@login_required
 def get_goal(id):
     db = get_db()
     goal = db.execute(
@@ -29,6 +31,7 @@ def get_goal(id):
     return goalJSON
 
 @bp.route('/delete', methods=['POST'])
+@login_required
 def delete(id):
     get_goal(id)
     db = get_db()
@@ -37,6 +40,7 @@ def delete(id):
     return redirect(url_for("goal.index"))
 
 @bp.route('/achievements', methods=['GET'])
+@login_required
 def achievements():
     db = get_db()
     achievements = db.execute(
@@ -47,7 +51,8 @@ def achievements():
     achievementsJSON = json.dumps(achievements)
     return achievementsJSON
 
-@bp.route('/add', methods=['POST'])
+@bp.route('<int:id>/add', methods=['POST'])
+@login_required
 def add():
     goalName = request.form['goalName']
     frequency = request.form['frequency']
