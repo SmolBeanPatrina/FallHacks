@@ -7,8 +7,8 @@ CREATE TABLE Goal (
     user_id INTEGER,
     goalName TEXT NOT NULL,
     frequency TEXT NOT NULL,
-    completed BOOLEAN, 
-    numCompleted INTEGER,
+    completed BOOLEAN DEFAULT "0", 
+    numCompleted INTEGER DEFAULT "0",
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES User (id)
 );
