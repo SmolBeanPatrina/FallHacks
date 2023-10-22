@@ -6,7 +6,7 @@ from flaskr.db import get_db
 bp = Blueprint('goal', __name__, url_prefix='/goal')
 
 @bp.route("/list", methods = ["GET"])
-def index():
+def list():
     db = get_db()
     goals = db.execute(
         "SELECT g.id, goalName, created, frequency, completed, numCompleted"
@@ -60,7 +60,7 @@ def add():
         flash(error)
     else:
         db = get_db()
-        goals = db.execute(
+        db.execute(
         'INSERT INTO post (goalName, frequency, author_id)'
         ' VALUES (?, ?, ?)',
         (goalName, frequency, g.user['id'])
@@ -69,7 +69,7 @@ def add():
 
 @bp.route('/<int:id>/edit', methods=['GET', 'POST'])
 def update(id):
-    goal = get_goal(id)
+    get_goal(id)
 
     if request.method == 'POST':
         goalName = request.form['goalName']
