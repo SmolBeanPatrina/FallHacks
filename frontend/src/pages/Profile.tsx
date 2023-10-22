@@ -3,7 +3,7 @@ import "./Profile.css"
 function EditIcon() {
   return (
     <svg
-      className="w-4 h-4"
+      className="w-6 h-6 rounded hover:bg-gray-300/50 dark:hover:bg-gray-500/50 p-1"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -31,9 +31,9 @@ function Profile() {
         <table className="w-full">
           <tbody>
             <tr className="border-b dark:border-gray-400">
-              <td>Email</td>
-              <td>lipsum@example.com</td>
-              <td><EditIcon /></td>
+              <td>Username</td>
+              <td>loremipsum</td>
+              <td></td>
             </tr>
             <tr>
               <td>Password</td>
@@ -43,7 +43,7 @@ function Profile() {
           </tbody>
         </table>
       </div>
-      <button className="rounded border dark:border-gray-400 text-red-600 dark:text-red-400 py-2 px-4 mt-8">
+      <button className="rounded border dark:border-gray-400 text-red-600 dark:text-red-400 hover:bg-red-50/50 dark:hover:bg-red-100/20 py-2 px-4 mt-8">
         Sign out
       </button>
     </div>
