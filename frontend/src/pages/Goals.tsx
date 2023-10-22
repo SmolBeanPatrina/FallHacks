@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom"
 import dreamer from "../assets/undraw_dreamer.svg"
+import apple from "../assets/apple.webp"
+import cherry from "../assets/cherry.webp"
+import orange from "../assets/orange.webp"
+import pear from "../assets/pear.webp"
 
 function Goal() {
   return (
