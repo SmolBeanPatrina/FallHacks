@@ -9,6 +9,7 @@ import Explore from "./pages/Explore"
 import ExploreGoal from "./pages/ExploreGoal"
 import CreateGoal from "./pages/CreateGoal"
 import LogIn from "./pages/LogIn"
+import Register from "./pages/Register"
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,6 +17,7 @@ function App() {
   return (
     <Routes>
       <Route path="/login" element={<LogIn />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/" element={<Layout />}>
         <Route path="goals" element={<Goals />} />
         <Route path="create-goal" element={<CreateGoal />} />
