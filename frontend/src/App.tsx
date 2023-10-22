@@ -8,12 +8,14 @@ import Profile from "./pages/Profile"
 import Explore from "./pages/Explore"
 import ExploreGoal from "./pages/ExploreGoal"
 import CreateGoal from "./pages/CreateGoal"
+import LogIn from "./pages/LogIn"
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <Routes>
+      <Route path="/login" element={<LogIn />} />
       <Route path="/" element={<Layout />}>
         <Route path="goals" element={<Goals />} />
         <Route path="create-goal" element={<CreateGoal />} />

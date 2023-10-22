@@ -3,9 +3,12 @@ from flask import (
 )
 from flaskr.db import get_db
 from flaskr.auth import login_required
+from flask_cors import CORS, cross_origin
+
 bp = Blueprint('goal', __name__, url_prefix='/goal')
 
 @bp.route("/list", methods = ["GET"])
+@cross_origin()
 @login_required
 def list():
     db = get_db()
@@ -20,6 +23,7 @@ def list():
     return goalsJSON
 
 @bp.route('/goal', methods=['GET'])
+@cross_origin()
 @login_required
 def get_goal(id):
     db = get_db()
@@ -33,6 +37,7 @@ def get_goal(id):
     return goalJSON
 
 @bp.route('<int:id>/delete', methods=['POST'])
+@cross_origin()
 @login_required
 def delete(id):
     get_goal(id)
@@ -42,6 +47,7 @@ def delete(id):
     return redirect(url_for("goal.index"))
 
 @bp.route('/achievements', methods=['GET'])
+@cross_origin()
 @login_required
 def achievements():
     db = get_db()
@@ -56,6 +62,7 @@ def achievements():
     return historyJSON
 
 @bp.route('<int:id>/add', methods=['POST'])
+@cross_origin()
 @login_required
 def add():
     goalName = request.form['goalName']
@@ -77,6 +84,7 @@ def add():
         db.commit()
 
 @bp.route('/<int:id>/edit', methods=['GET', 'POST'])
+@cross_origin()
 @login_required
 def update(id):
     if request.method == 'POST':
@@ -102,6 +110,7 @@ def update(id):
         return goalEditJSON
     
 @bp.route('/complete', methods=['POST'])
+@cross_origin()
 @login_required
 def complete_goal(id):
     goal = get_goal(id)

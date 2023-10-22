@@ -7,6 +7,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from flaskr.db import get_db
 
+from flask_cors import CORS, cross_origin
+
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 
@@ -21,6 +23,7 @@ def login_required(view):
     return wrapped_view
 
 @bp.route('/register', methods= ['GET', 'POST'])
+@cross_origin()
 def register():
     if request.method == 'POST':
         username = request.form['username']
@@ -51,6 +54,7 @@ def register():
     return registerJSON
 
 @bp.route('/login', methods=['GET', 'POST'])
+@cross_origin()
 def login():
     if request.method == 'POST':
         username = request.form['username']
@@ -88,6 +92,7 @@ def load_logged_in_user():
         ).fetchone()
 
 @bp.route('/logout')
+@cross_origin()
 def logout():
     session.clear()
     return redirect(url_for('login'))
