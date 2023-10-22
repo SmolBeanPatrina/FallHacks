@@ -36,6 +36,7 @@ def register():
         elif not password:
             error = 'Password is required.'
 
+        register = ""
         if error is None:
             try:
                 register = db.execute(
