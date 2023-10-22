@@ -7,6 +7,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from flaskr.db import get_db
 
+from flask_cors import CORS, cross_origin
+
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 
@@ -21,6 +23,7 @@ def login_required(view):
     return wrapped_view
 
 @bp.route('/register', methods= ['GET', 'POST'])
+@cross_origin()
 def register():
     if request.method == 'POST':
         username = request.form['username']
@@ -33,6 +36,7 @@ def register():
         elif not password:
             error = 'Password is required.'
 
+        register = ""
         if error is None:
             try:
                 register = db.execute(
@@ -51,6 +55,7 @@ def register():
     return registerJSON
 
 @bp.route('/login', methods=['GET', 'POST'])
+@cross_origin()
 def login():
     if request.method == 'POST':
         username = request.form['username']
@@ -69,11 +74,11 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('index'))
+            return redirect("http://localhost:5173/")
 
         flash(error)
 
-    userJSON = json.dump(user)
+    userJSON = json.dumps(user)
     return userJSON
 
 @bp.before_app_request
@@ -88,6 +93,7 @@ def load_logged_in_user():
         ).fetchone()
 
 @bp.route('/logout')
+@cross_origin()
 def logout():
     session.clear()
     return redirect(url_for('login'))

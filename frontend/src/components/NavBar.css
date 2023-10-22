@@ -1,0 +1,15 @@
+nav {
+  @apply fixed bottom-0 left-0 z-10 w-full flex justify-center h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 select-none;
+}
+
+.navlink {
+  @apply inline-flex flex-col items-center justify-center px-8 hover:bg-green-100/50 dark:hover:bg-green-800/40 space-y-1 text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-500;
+}
+
+.navlink .text {
+  @apply text-sm;
+}
+
+.navlink.active {
+  @apply text-green-600 dark:text-green-500;
+}
