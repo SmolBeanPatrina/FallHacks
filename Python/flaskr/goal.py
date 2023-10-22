@@ -67,20 +67,28 @@ def add():
         )
         db.commit()
 
-# @bp.route('/addGoal', methods=('POST'))
-# def addGoal():
-#     goalName = request.form['goalName']
-#     frequency = request.form['frequency']
+@bp.route('/<int:id>/edit', methods=['GET', 'POST'])
+def update(id):
+    goal = get_goal(id)
 
-# @bp.route('/editGoal', methods=('GET', 'POST'))
-# def addGoal():
-#     goalName = request.form['goalName']
-#     frequency = request.form['frequency']
+    if request.method == 'POST':
+        goalName = request.form['goalName']
+        frequency = request.form['frequency']
+        error = None
 
-# @bp.route('/<int:id>/delete', methods=('POST',))
-# def delete(id):
-#     get_post(id)
-#     db = get_db()
-#     db.execute('DELETE FROM post WHERE id = ?', (id,))
-#     db.commit()
-#     return redirect(url_for('blog.index'))
+        if not goalName:
+            error = 'Goal Name is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            goalEdit = db.execute(
+                'UPDATE Goal SET goalName = ?, frequency = ?'
+                ' WHERE id = ?',
+                (goalName, frequency, id)
+            )
+            db.commit()
+        
+        goalEditJSON = json.dumps(goalEdit)
+        return goalEditJSON
