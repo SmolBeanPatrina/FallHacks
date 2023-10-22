@@ -74,7 +74,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('index'))
+            return redirect("http://localhost:5173/")
 
         flash(error)
 
