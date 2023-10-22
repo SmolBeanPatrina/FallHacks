@@ -1,7 +1,7 @@
 import functools
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, json, render_template, request, session, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -20,7 +20,7 @@ def login_required(view):
 
     return wrapped_view
 
-@bp.route('/register', methods=('GET', 'POST'))
+@bp.route('/register', methods= ['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
@@ -35,7 +35,7 @@ def register():
 
         if error is None:
             try:
-                db.execute(
+                register = db.execute(
                     "INSERT INTO user (username, password) VALUES (?, ?)",
                     (username, generate_password_hash(password)),
                 )
@@ -47,9 +47,10 @@ def register():
 
         flash(error)
 
-    return render_template('auth/register.html')
+    registerJSON = json.dumps(register)
+    return registerJSON
 
-@bp.route('/login', methods=('GET', 'POST'))
+@bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
@@ -72,7 +73,8 @@ def login():
 
         flash(error)
 
-    return render_template('auth/login.html')
+    userJSON = json.dump(user)
+    return userJSON
 
 @bp.before_app_request
 def load_logged_in_user():
@@ -88,5 +90,5 @@ def load_logged_in_user():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 

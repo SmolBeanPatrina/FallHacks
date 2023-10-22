@@ -7,12 +7,14 @@ bp = Blueprint('goal', __name__, url_prefix='/goal')
 
 @bp.route("/list", methods = ["GET"])
 @login_required
-def index():
+def list():
     db = get_db()
     goals = db.execute(
         "SELECT g.id, goalName, created, frequency, completed, numCompleted"
         " FROM Goal g"
         " ORDER BY created ASC"
+        " WHERE g.user_id = ?",
+        (g.user['id'],)
     ).fetchall()
     goalsJSON = json.dumps(goals)
     return goalsJSON
@@ -23,14 +25,14 @@ def get_goal(id):
     db = get_db()
     goal = db.execute(
         "SELECT g.id, goalName, created, frequency, completed, numCompleted"
-        " FROM goal g"
+        " FROM Goal g"
         " WHERE g.id = ?",
-        (id,),
+        (id,)
     ).fetchone()
     goalJSON = json.dumps(goal)
     return goalJSON
 
-@bp.route('/delete', methods=['POST'])
+@bp.route('<int:id>/delete', methods=['POST'])
 @login_required
 def delete(id):
     get_goal(id)
@@ -43,13 +45,15 @@ def delete(id):
 @login_required
 def achievements():
     db = get_db()
-    achievements = db.execute(
-        "SELECT a.id, completed, goal_id"
-        " FROM Achievement a"
+    history = db.execute(
+        "SELECT a.id, completed, goal_id, "
+        " FROM History h INNER JOIN Goal g"
         " ORDER BY completed ASC"
+        " WHERE g.user_id = ?",
+        (g.user['id'],)
     ).fetchall()
-    achievementsJSON = json.dumps(achievements)
-    return achievementsJSON
+    historyJSON = json.dumps(history)
+    return historyJSON
 
 @bp.route('<int:id>/add', methods=['POST'])
 @login_required
@@ -65,17 +69,16 @@ def add():
         flash(error)
     else:
         db = get_db()
-        goals = db.execute(
-        'INSERT INTO post (goalName, frequency, author_id)'
+        db.execute(
+        'INSERT INTO Goal (goalName, frequency, user_id)'
         ' VALUES (?, ?, ?)',
         (goalName, frequency, g.user['id'])
         )
         db.commit()
 
 @bp.route('/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
 def update(id):
-    goal = get_goal(id)
-
     if request.method == 'POST':
         goalName = request.form['goalName']
         frequency = request.form['frequency']
@@ -97,3 +100,15 @@ def update(id):
         
         goalEditJSON = json.dumps(goalEdit)
         return goalEditJSON
+    
+@bp.route('/complete', methods=['POST'])
+@login_required
+def complete_goal(id):
+    goal = get_goal(id)
+    db = get_db()
+    goalEdit = db.execute(
+        'UPDATE Goal SET completed ?',
+        ("1")
+    )
+    db.commit()
+    return True
