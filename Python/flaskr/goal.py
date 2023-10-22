@@ -5,7 +5,7 @@ from flaskr.db import get_db
 
 bp = Blueprint('goal', __name__, url_prefix='/goal')
 
-@bp.route("/goals", methods = ["GET"])
+@bp.route("/list", methods = ["GET"])
 def index():
     """Show all the goals, most recent first."""
     db = get_db()
@@ -18,14 +18,25 @@ def index():
     return dbJSON
 
 
-# @bp.route('/addGoal', methods=('GET'))
-# def getGoal(id):
-#     goal = (
-#         get_db()
-#         .execute(
-#             "SELECT"
-#         )
-#     )
+@bp.route('/add', methods=['POST'])
+def add():
+    goalName = request.form['goalName']
+    frequency = request.form['frequency']
+    error = None
+
+    if not goalName:
+        error = 'Title is required.'
+
+    if error is not None:
+        flash(error)
+    else:
+        db = get_db()
+        goals = db.execute(
+        'INSERT INTO post (goalName, frequency, author_id)'
+        ' VALUES (?, ?, ?)',
+        (goalName, frequency, g.user['id'])
+        )
+        db.commit()
 
 # @bp.route('/addGoal', methods=('POST'))
 # def addGoal():
