@@ -14,13 +14,13 @@ To start the backend dev server:
 ```
 $ cd Python
 $ pip install flask flask-cors
-$ flask --app flaskr innit-db
+$ flask --app flaskr init-db
 $ flask --app flaskr
 ```
 ## Participant names and contact information
-Patrina Cheung patrinacheung123@gmail.com
-Kelly Feng 16.kelly.feng@gmail.com
-Cyrus Ng me@cqng.ca
+Patrina Cheung `patrinacheung123 at gmail.com`
+Kelly Feng `16.kelly.feng at gmail.com`
+Cyrus Ng `me at cqng.ca`
 
 ## Libraries, APIs, resources used
 - Backend: Flask
