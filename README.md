@@ -22,7 +22,8 @@ Kelly Feng 16.kelly.feng@gmail.com
 Cyrus Ng me@cqng.ca
 
 ## Libraries, APIs, resources used
-Flask, Python, Javascript, HTML, CSS
+- Backend: Flask
+- Frontend: React, Tailwind, Flowbite. Illustrations from undraw.
 
 ## GitHub repo link
 https://github.com/SmolBeanPatrina/FallHacks.git
